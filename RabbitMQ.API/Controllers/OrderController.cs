@@ -17,6 +17,8 @@ namespace RabbitMQ.API.Controllers
 
         public OrderController(ApplicationDbContext context, IMessageProducer messageProducer, IMapper mapper)
         {
+        //Obtenemos por inyección de dependencia una instancia del contexto de la bbdd, de automapper 
+        //y de la clase productor que enviará el manesaje a la cola.
             this.context = context;
             this.messageProducer = messageProducer;
             this.mapper = mapper;
@@ -24,12 +26,16 @@ namespace RabbitMQ.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(OrderDto orderDto)
+        public async Task<IActionResult> CreateOrder([FromBody]OrderDto orderDto)
         {
+            //Creamos el pedido con la orden recibida en el cuerpo de la llamda
             var order = mapper.Map<Order>(orderDto);
             context.Orders.Add(order);
+            //Guardamos el pedido en la bbdd (en este caso la bbdd está en memoria)
             await context.SaveChangesAsync();
+            //Enviamos el mensaje a la bbdd indicando el pedido creado y la cola en la que guardar el mensaje
             messageProducer.SendMessage(order, "orders");
+            //Devolvemos el id del pedido como respuesta a la llamada del api
             return Ok(new { id = order.Id });
         }
 
