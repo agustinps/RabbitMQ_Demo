@@ -1,6 +1,6 @@
 # RabbitMQ Demo
 
-### Simple demostración del uso de RabbitMQ mediante una aplicación de consola como consumidor y un API como productor. 
+### Simple demostración del uso de RabbitMQ. Proyecto Web API como productor y una aplicación de consola como consumidor. 
 
 RabbitMQ nos permite crear aplicaciones utilizando colas de mensajes, lo que significa que estas estarán desacopladas y tendrán un mejor rendimiento y escalabilidad. Permite tener productores y suscriptores sin estar al tanto unos de otros y evitar errores o perdida de datos por fallo de alguna parte de nuestro software.
 
