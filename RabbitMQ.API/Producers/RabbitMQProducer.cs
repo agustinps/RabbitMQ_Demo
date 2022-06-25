@@ -29,7 +29,7 @@ namespace RabbitMQ.API.Producers
             //Creamos el canal de comunicación
             using(var channel = connection.CreateModel())
             {
-                //Declaramos la cola en la publicar el mensaje por el canal creado
+                //Declaramos la cola en la que publicar el mensaje por el canal creado
                 channel.QueueDeclare(routingKey, exclusive: false);
                 //Serializamos el mensaje y lo convertimos en byte[] para poder enviarlo
                 var jsonObject = JsonSerializer.Serialize(message);
